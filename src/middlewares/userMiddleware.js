@@ -1,4 +1,6 @@
+require('dotenv').config();
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const UserService = require('../services/userService');
 
 const validateBody = (req, res, next) => {
@@ -44,7 +46,7 @@ const validateInfos = async (req, res, next) => {
   }
 };
 
-const validateInfoEmailExists = async (req, res, next) => {
+const validateInfoEmailExist = async (req, res, next) => {
   const { email } = req.body;
 
   const emails = await UserService.getEmails();
@@ -58,9 +60,30 @@ const validateInfoEmailExists = async (req, res, next) => {
   next();
 };
 
+const validateToken = async (req, res, next) => {
+  const { authorization: token } = req.headers;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  const { data: credentials } = jwt
+    .decode(token, process.env.JWT_SECRET) || { data: { email: '', password: '' } };
+  const users = await UserService.getEmailAndPassword();
+  const isCredentialsValid = users
+    .some((user) => user.email === credentials.email && user.password === credentials.password);
+
+  if (!isCredentialsValid) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateBody,
   validateEmailExists,
   validateInfos,
-  validateInfoEmailExists,
+  validateInfoEmailExist,
+  validateToken,
 };

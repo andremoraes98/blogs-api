@@ -24,8 +24,26 @@ const create = async (user) => {
   return result;
 };
 
+const getEmailAndPassword = async () => {
+  const infos = await User.findAll({
+    attributes: ['email', 'password'],
+  });
+
+  return infos
+    .map((info) => info.toJSON())
+    .map((info) => [info.email, info.password]);
+};
+
+const getAll = async () => {
+  const users = await User.findAll();
+
+  return users.toJSON();
+};
+
 module.exports = {
   getEmails,
   generateToken,
   create,
+  getEmailAndPassword,
+  getAll,
 };

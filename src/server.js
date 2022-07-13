@@ -17,6 +17,9 @@ app.post('/login',
   UserMiddleware.validateEmailExists,
   UserController.getToken);
 
-app.post('/user', UserController.create);
+app.post('/user',
+  UserMiddleware.validateInfos,
+  UserMiddleware.validateInfoEmailExists,
+  UserController.create);
 
 app.listen(port, () => console.log('ouvindo porta', port));

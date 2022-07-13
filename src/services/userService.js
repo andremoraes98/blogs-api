@@ -4,11 +4,10 @@ const { User } = require('../database/models');
 const getEmails = async () => {
   const emails = await User.findAll({
     attributes: ['email'],
+    raw: true,
   });
 
-  return emails
-    .map((email) => email.toJSON())
-    .map((email) => email.email);
+  return emails.map((email) => email.email);
 };
 
 const generateToken = (user) => {

@@ -30,14 +30,13 @@ const getEmailAndPassword = async () => {
   });
 
   return infos
-    .map((info) => info.toJSON())
-    .map((info) => [info.email, info.password]);
+    .map((info) => info.toJSON());
 };
 
 const getAll = async () => {
   const users = await User.findAll();
 
-  return users.toJSON();
+  return users;
 };
 
 module.exports = {

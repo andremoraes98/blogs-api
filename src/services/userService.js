@@ -18,7 +18,14 @@ const generateToken = (user) => {
   return token;
 };
 
+const create = async (user) => {
+  const result = await User.create(user);
+
+  return result;
+};
+
 module.exports = {
   getEmails,
   generateToken,
+  create,
 };

@@ -1,5 +1,7 @@
 'use strict';
 
+const { Sequelize } = require(".");
+
 const BlogPost = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define('BlogPost', {
     id: {
@@ -29,11 +31,16 @@ const BlogPost = (sequelize, DataTypes) => {
     published: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     updated: {
       allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     }
+  },
+  {
+    timestamps: false,
   });
 
   BlogPost.associate = (model) => {

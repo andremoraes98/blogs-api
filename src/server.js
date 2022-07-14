@@ -26,4 +26,9 @@ app.get('/user',
   UserMiddleware.validateToken,
   UserController.getAll);
 
+app.get('/user/:id',
+  UserMiddleware.validateToken,
+  UserMiddleware.validateIdExists,
+  UserController.getById);
+
 app.listen(port, () => console.log('ouvindo porta', port));

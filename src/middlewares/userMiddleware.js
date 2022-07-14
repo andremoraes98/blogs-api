@@ -80,10 +80,25 @@ const validateToken = async (req, res, next) => {
   next();
 };
 
+const validateIdExists = async (req, res, next) => {
+  const { id } = req.params;
+
+  const ids = await UserService.getId();
+
+  if (!ids.includes(Number(id))) {
+    return res
+      .status(404)
+      .json({ message: 'User does not exist' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateBody,
   validateEmailExists,
   validateInfos,
   validateInfoEmailExist,
   validateToken,
+  validateIdExists,
 };

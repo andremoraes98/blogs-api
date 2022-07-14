@@ -44,10 +44,20 @@ const getAll = async () => {
 const getById = async (id) => {
   const user = await User.findOne({
     where: { id },
+    attributes: { exclude: ['password'] },
     raw: true,
   });
 
   return user;
+};
+
+const getId = async () => {
+  const ids = await User.findAll({
+    attributes: ['id'],
+    raw: true,
+  });
+
+  return ids.map((id) => id.id);
 };
 
 module.exports = {
@@ -57,4 +67,5 @@ module.exports = {
   getEmailAndPassword,
   getAll,
   getById,
+  getId,
 };

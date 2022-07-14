@@ -52,4 +52,8 @@ app.post('/post',
   PostMiddleware.validateCategory,
   PostController.create);
 
+app.get('/post',
+  UserMiddleware.validateToken,
+  PostController.getAll);
+
 app.listen(port, () => console.log('ouvindo porta', port));

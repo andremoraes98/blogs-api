@@ -41,10 +41,20 @@ const getAll = async () => {
   return users;
 };
 
+const getById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+    raw: true,
+  });
+
+  return user;
+};
+
 module.exports = {
   getEmails,
   generateToken,
   create,
   getEmailAndPassword,
   getAll,
+  getById,
 };

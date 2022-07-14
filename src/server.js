@@ -48,8 +48,8 @@ app.get('/categories',
 
 app.post('/post', 
   UserMiddleware.validateToken,
-  PostMiddleware.validateCategory,
   PostMiddleware.validateBody,
+  PostMiddleware.validateCategory,
   PostController.create);
 
 app.listen(port, () => console.log('ouvindo porta', port));

@@ -29,11 +29,10 @@ const validateBody = async (req, res, next) => {
     const schema = Joi.object({
       title: Joi.string().required().max(255),
       content: Joi.string().required().max(255),
-      userId: Joi.number().required().integer(),
     });
   
-    const { title, content, userId } = req.body;
-    await schema.validateAsync({ title, content, userId });
+    const { title, content } = req.body;
+    await schema.validateAsync({ title, content });
 
     next();
   } catch (e) {

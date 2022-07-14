@@ -39,4 +39,8 @@ app.post('/categories',
   CategoryMiddleware.validateBody,
   CategoryController.create);
 
+app.get('/categories', 
+  UserMiddleware.validateToken,
+  CategoryController.getAll);
+
 app.listen(port, () => console.log('ouvindo porta', port));

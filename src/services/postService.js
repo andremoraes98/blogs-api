@@ -28,7 +28,14 @@ const getUserIdWhereEmail = async (token) => {
   return result.id;
 };
 
+const getAll = async () => {
+  const result = BlogPost.findAll();
+
+  return result;
+};
+
 module.exports = {
   create,
   getUserIdWhereEmail,
+  getAll,
 };

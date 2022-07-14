@@ -1,7 +1,7 @@
-const { Post } = require('../database/models');
+const { BlogPost } = require('../database/models');
 
 const create = async (blogPost) => {
-  const post = await Post.create(blogPost);
+  const post = await BlogPost.create(blogPost);
 
   return post;
 };

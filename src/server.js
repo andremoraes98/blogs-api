@@ -10,6 +10,8 @@ const UserMiddleware = require('./middlewares/userMiddleware');
 const CategoryController = require('./controller/categoryController');
 const CategoryMiddleware = require('./middlewares/categoryMiddeware');
 
+const PostController = require('./controller/postController');
+
 // não remova esse endpoint
 app.get('/', (_request, response) => {
   response.send();
@@ -42,5 +44,9 @@ app.post('/categories',
 app.get('/categories', 
   UserMiddleware.validateToken,
   CategoryController.getAll);
+
+app.post('/post', 
+  UserMiddleware.validateToken,
+  PostController.create);
 
 app.listen(port, () => console.log('ouvindo porta', port));

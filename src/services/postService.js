@@ -1,8 +1,15 @@
 const jwt = require('jsonwebtoken');
-const { BlogPost, User } = require('../database/models');
+const { BlogPost, User, PostCategory } = require('../database/models');
 
 const create = async (blogPost) => {
-  const post = await BlogPost.create(blogPost);
+  const { dataValues: post } = await BlogPost.create(blogPost);
+
+  const postCategories = blogPost.categoryIds.map((categoryId) => ({
+    postId: post.id,
+    categoryId,
+  }));
+
+  await PostCategory.bulkCreate(postCategories);
 
   return post;
 };

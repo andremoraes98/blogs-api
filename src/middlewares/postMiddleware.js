@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const CategoryService = require('../services/categoryService');
+const PostService = require('../services/postService');
 
 const validateCategory = async (req, res, next) => {
   const { categoryIds } = req.body;
@@ -40,7 +41,19 @@ const validateBody = async (req, res, next) => {
   }
 };
 
+const validateId = async (req, res, next) => {
+  const { id } = req.params;
+  const ids = await PostService.getIds();
+
+  if (!ids.includes(id)) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+
+  next();
+};
+
 module.exports = {
   validateBody,
   validateCategory,
+  validateId,
 };

@@ -14,18 +14,17 @@ const create = async (blogPost) => {
   return post;
 };
 
-const getUserIdWhereEmail = async (token) => {
+const getUserFromToken = async (token) => {
   const { data: { email } } = jwt.decode(token, process.env.JWT_SECRET);
   
   const result = await User.findOne({
     where: {
       email,
     },
-    attributes: ['id'],
     raw: true,
   });
 
-  return result.id;
+  return result;
 };
 
 const getAll = async () => {
@@ -86,7 +85,7 @@ const update = async (id, blogPost) => {
 
 module.exports = {
   create,
-  getUserIdWhereEmail,
+  getUserFromToken,
   getAll,
   getById,
   getIds,

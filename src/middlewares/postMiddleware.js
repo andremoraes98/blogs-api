@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const CategoryService = require('../services/categoryService');
 const PostService = require('../services/postService');
+const UserService = require('../services/userService');
 
 const validateCategory = async (req, res, next) => {
   const { categoryIds } = req.body;
@@ -52,8 +53,30 @@ const validateId = async (req, res, next) => {
   next();
 };
 
+const validateUpdateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { authorization: token } = req.headers;
+
+    const { email: tokenEmail } = await PostService.getUserFromToken(token);
+    const { userId } = await PostService.getById(id);
+    const { email: userEmail } = await UserService.getById(userId);
+
+    if (tokenEmail !== userEmail) {
+      return res
+        .status(401)
+        .json({ message: 'Unauthorized user' });
+    }
+  
+    next();
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
 module.exports = {
   validateBody,
   validateCategory,
   validateId,
+  validateUpdateUser,
 };

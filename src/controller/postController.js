@@ -5,7 +5,7 @@ const create = async (req, res) => {
     const blogPost = req.body;
     const { authorization: token } = req.headers;
 
-    const userId = await PostService.getUserIdWhereEmail(token);
+    const { id: userId } = await PostService.getUserFromToken(token);
   
     const result = await PostService.create({ ...blogPost, userId });
   

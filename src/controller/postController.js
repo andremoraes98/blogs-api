@@ -31,8 +31,9 @@ const getById = async (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
+  const blogPost = req.body;
 
-  const post = await PostService.update(id);
+  const post = await PostService.update(id, blogPost);
 
   res.status(200).json(post);
 };

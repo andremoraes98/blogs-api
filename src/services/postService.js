@@ -72,23 +72,16 @@ const getIds = async () => {
   return ids.map((id) => id.id);
 };
 
-const update = async (id) => {
-  const post = await BlogPost.update({
-    include: [{
-      model: Category,
-      as: 'categories',
-    },
-    {
-      model: User,
-      as: 'user',
-      attributes: { exclude: ['password'] },
-    }],
+const update = async (id, blogPost) => {
+  const idPost = await BlogPost.update(blogPost, {
     where: {
       id,
     },
   });
 
-  return post;
+  const result = await getById(idPost);
+
+  return result;
 };
 
 module.exports = {

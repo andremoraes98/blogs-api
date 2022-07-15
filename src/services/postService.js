@@ -63,9 +63,19 @@ const getById = async (id) => {
   return post;
 };
 
+const getIds = async () => {
+  const ids = await BlogPost.findAll({
+    attributes: ['id'],
+    raw: true,
+  });
+
+  return ids.map((id) => id.id);
+};
+
 module.exports = {
   create,
   getUserIdWhereEmail,
   getAll,
   getById,
+  getIds,
 };

@@ -45,7 +45,7 @@ const validateId = async (req, res, next) => {
   const { id } = req.params;
   const ids = await PostService.getIds();
 
-  if (!ids.includes(id)) {
+  if (!ids.includes(Number(id))) {
     return res.status(404).json({ message: 'Post does not exist' });
   }
 

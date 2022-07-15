@@ -56,4 +56,8 @@ app.get('/post',
   UserMiddleware.validateToken,
   PostController.getAll);
 
+app.get('/post/:id', 
+  UserMiddleware.validateToken,
+  PostController.getById);
+
 app.listen(port, () => console.log('ouvindo porta', port));

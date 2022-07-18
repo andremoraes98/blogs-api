@@ -69,6 +69,7 @@ app.put('/post/:id',
 
 app.delete('/post/:id',
   UserMiddleware.validateToken,
+  PostMiddleware.validateId,
   PostMiddleware.validateUpdateUser,
   PostController.destroy);
 

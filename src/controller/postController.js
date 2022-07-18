@@ -46,10 +46,19 @@ const destroy = async (req, res) => {
   res.status(204).end();
 };
 
+const getLike = async (req, res) => {
+  const { q } = req.query;
+
+  const result = await PostService.getLike(q);
+
+  res.status(200).json(result);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   destroy,
+  getLike,
 };

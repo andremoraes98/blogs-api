@@ -89,6 +89,15 @@ const update = async (id, blogPost) => {
   return result;
 };
 
+const destroy = async (id) => {
+  await BlogPost.destroy({
+    where: {
+      id,
+    },
+  });
+  return null;
+};
+
 module.exports = {
   create,
   getUserFromToken,
@@ -96,4 +105,5 @@ module.exports = {
   getById,
   getIds,
   update,
+  destroy,
 };

@@ -38,9 +38,18 @@ const update = async (req, res) => {
   res.status(200).json(post);
 };
 
+const destroy = async (req, res) => {
+  const { id } = req.params;
+
+  await PostService.destroy(id);
+
+  res.status(204).end();
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  destroy,
 };

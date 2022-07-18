@@ -1,4 +1,5 @@
 const UserService = require('../services/userService');
+const PostService = require('../services/postService');
 
 const getToken = async (req, res) => {
   const user = req.body;
@@ -31,9 +32,20 @@ const getById = async (req, res) => {
   res.status(200).json(user);
 };
 
+const destroy = async (req, res) => {
+  const { authorization: token } = req.headers;
+
+  const { email } = await PostService.getUserFromToken(token);
+
+  await UserService.destroy(email);
+
+  res.status(204).end();
+};
+
 module.exports = {
   getToken,
   create,
   getAll,
   getById,
+  destroy,
 };

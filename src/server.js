@@ -73,4 +73,8 @@ app.delete('/post/:id',
   PostMiddleware.validateUpdateUser,
   PostController.destroy);
 
+app.delete('/user/me',
+  UserMiddleware.validateToken,
+  UserController.destroy);
+
 app.listen(port, () => console.log('ouvindo porta', port));

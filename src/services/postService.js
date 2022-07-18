@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 const { BlogPost, User, PostCategory, Category } = require('../database/models');
 
 const create = async (blogPost) => {
@@ -98,6 +99,19 @@ const destroy = async (id) => {
   return null;
 };
 
+const getLike = async (search) => {
+  const result = await BlogPost.findAll({
+    where: {
+      title: {
+        [Op.like]: `%${search}%`,
+      },
+    },
+    raw: true,
+  });
+
+  return result;
+};
+
 module.exports = {
   create,
   getUserFromToken,
@@ -106,4 +120,5 @@ module.exports = {
   getIds,
   update,
   destroy,
+  getLike,
 };

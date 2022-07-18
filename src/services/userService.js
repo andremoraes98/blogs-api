@@ -60,6 +60,14 @@ const getId = async () => {
   return ids.map((id) => id.id);
 };
 
+const destroy = async (email) => {
+  await User.destroy({
+    where: {
+      email,
+    },
+  });
+};
+
 module.exports = {
   getEmails,
   generateToken,
@@ -68,4 +76,5 @@ module.exports = {
   getAll,
   getById,
   getId,
+  destroy,
 };

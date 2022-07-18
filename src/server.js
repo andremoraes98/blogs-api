@@ -67,4 +67,9 @@ app.put('/post/:id',
   PostMiddleware.validateBody,
   PostController.update);
 
+app.delete('/post/:id',
+  UserMiddleware.validateToken,
+  PostMiddleware.validateUpdateUser,
+  PostController.destroy);
+
 app.listen(port, () => console.log('ouvindo porta', port));

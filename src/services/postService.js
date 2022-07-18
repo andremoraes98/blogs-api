@@ -102,11 +102,20 @@ const destroy = async (id) => {
 const getLike = async (search) => {
   const result = await BlogPost.findAll({
     where: {
-      title: {
-        [Op.like]: `%${search}%`,
-      },
+      [Op.or]: [{ title: { [Op.like]: `%${search}%` } },
+        { content: { [Op.like]: `%${search}%` } }],
     },
-    raw: true,
+    include: [{
+      model: Category,
+      as: 'categories',
+      through: {
+        attributes: [],
+      } },
+    {
+      model: User,
+      as: 'user',
+      attributes: { exclude: ['password'] },
+    }],
   });
 
   return result;

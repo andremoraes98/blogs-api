@@ -32,6 +32,9 @@ const getAll = async () => {
     include: [{
       model: Category,
       as: 'categories',
+      through: {
+        attributes: [],
+      },
     },
     {
       model: User,
@@ -48,6 +51,9 @@ const getById = async (id) => {
     include: [{
       model: Category,
       as: 'categories',
+      through: {
+        attributes: [],
+      },
     },
     {
       model: User,

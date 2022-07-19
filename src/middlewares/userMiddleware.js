@@ -29,6 +29,22 @@ const validateEmailExists = async (req, res, next) => {
   next();
 };
 
+const validatePassword = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const userCredentials = await UserService.getCredentialsWhereEmail(email);
+
+  const isPasswordValid = userCredentials.password === password.toString();
+
+  if (!isPasswordValid) {
+    return res
+      .status(400)
+      .json({ message: 'Incorrect credentials' });
+  }
+
+  next();
+};
+
 const validateInfos = async (req, res, next) => {
   try {
     const schema = Joi.object({
@@ -101,4 +117,5 @@ module.exports = {
   validateInfoEmailExist,
   validateToken,
   validateIdExists,
+  validatePassword,
 };

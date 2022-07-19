@@ -32,6 +32,18 @@ const getEmailAndPassword = async () => {
     .map((info) => info.toJSON());
 };
 
+const getCredentialsWhereEmail = async (email) => {
+  const credentials = await User.findOne({
+    where: {
+      email,
+    },
+    attributes: ['email', 'password'],
+    raw: true,
+  });
+
+  return credentials;
+};
+
 const getAll = async () => {
   const users = await User.findAll({
     attributes: { exclude: ['password'] },
@@ -77,4 +89,5 @@ module.exports = {
   getById,
   getId,
   destroy,
+  getCredentialsWhereEmail,
 };

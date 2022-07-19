@@ -21,6 +21,7 @@ app.get('/', (_request, response) => {
 app.post('/login',
   UserMiddleware.validateBody,
   UserMiddleware.validateEmailExists,
+  UserMiddleware.validatePassword,
   UserController.getToken);
 
 app.post('/user',

@@ -2,9 +2,9 @@ const UserService = require('../services/userService');
 const PostService = require('../services/postService');
 
 const getToken = async (req, res) => {
-  const user = req.body;
+  const { email } = req.body;
 
-  const token = UserService.generateToken(user);
+  const token = UserService.generateToken(email);
 
   res.status(200).json({ token });
 };

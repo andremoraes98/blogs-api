@@ -10,9 +10,8 @@ const getEmails = async () => {
   return emails.map((email) => email.email);
 };
 
-const generateToken = (user) => {
-  const { email, password } = user;
-  const payload = { data: { email, password } };
+const generateToken = (email) => {
+  const payload = { data: { email } };
   const token = jwt.sign(payload, process.env.JWT_SECRET);
   return token;
 };
@@ -21,15 +20,6 @@ const create = async (user) => {
   const result = await User.create(user);
 
   return result;
-};
-
-const getEmailAndPassword = async () => {
-  const infos = await User.findAll({
-    attributes: ['email', 'password'],
-  });
-
-  return infos
-    .map((info) => info.toJSON());
 };
 
 const getCredentialsWhereEmail = async (email) => {
@@ -84,7 +74,6 @@ module.exports = {
   getEmails,
   generateToken,
   create,
-  getEmailAndPassword,
   getAll,
   getById,
   getId,

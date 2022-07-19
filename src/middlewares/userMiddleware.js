@@ -83,13 +83,15 @@ const validateToken = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const { data: credentials } = jwt
-    .decode(token, process.env.JWT_SECRET) || { data: { email: '', password: '' } };
-  const users = await UserService.getEmailAndPassword();
-  const isCredentialsValid = users
-    .some((user) => user.email === credentials.email && user.password === credentials.password);
+  const { data: { email: credential } } = jwt
+    .decode(token, process.env.JWT_SECRET) || { data: { email: '' } };
+  
+  const users = await UserService.getEmails();
+  
+  const isCredentialValid = users
+    .some((user) => user === credential);
 
-  if (!isCredentialsValid) {
+  if (!isCredentialValid) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
 

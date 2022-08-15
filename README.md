@@ -1,6 +1,6 @@
 # Projeto Blog API
 
-<img src="../../images/BLOG_API.png" alt="Project-logo">
+![Project-logo](./BLOG_API.png)
 
 Neste projeto, colocamos em prática, pela primeira vez, a utilização do Sequelize para criar o Banco de Dados, as tabelas e também para realizar as consultas ao Banco de dados da camada Model.
 

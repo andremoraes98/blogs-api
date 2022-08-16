@@ -1,4 +1,6 @@
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('../swagger_output.json');
 const app = require('./api');
 
 // não remova a variável `API_PORT` ou o `listen`
@@ -12,6 +14,8 @@ const CategoryMiddleware = require('./middlewares/categoryMiddeware');
 
 const PostController = require('./controller/postController');
 const PostMiddleware = require('./middlewares/postMiddleware');
+
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // não remova esse endpoint
 app.get('/', (_request, response) => {

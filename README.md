@@ -10,6 +10,16 @@ Todo o processo de desenvolvimento foi feito com NodeJS com o auxílio da biblio
 
 ---
 
+# Documentação
+
+![Swagger-documentation](./SWAGGER_DOCUMENTATION.png)
+
+O código da documentação do *Swagger* está disponível no arquivo `swagger_output.json`.
+
+Além disso, também está disponível no endpoint `/doc`.
+
+---
+
 # Habilidades
 
 - Desenvolver uma API CRUD com o NodeJs utilizando o Express;
